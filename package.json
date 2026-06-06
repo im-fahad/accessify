@@ -1,0 +1,106 @@
+{
+  "name": "@glitchlab/accessify",
+  "version": "0.2.5",
+  "description": "A lightweight, framework-agnostic accessibility widget for the web. Drop it in to give users font size, contrast, dyslexia, color blind, keyboard navigation, and screen reader controls — with zero dependencies and first-class React, Vue 3, and Svelte bindings.",
+  "license": "MIT",
+  "author": "GlitchLab (https://github.com/im-fahad)",
+  "homepage": "https://accessify-playground.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/im-fahad/accessify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/im-fahad/accessify/issues"
+  },
+  "keywords": [
+    "accessibility",
+    "a11y",
+    "wcag",
+    "widget",
+    "react",
+    "vue",
+    "svelte",
+    "dyslexia",
+    "contrast",
+    "color-blind",
+    "keyboard-navigation",
+    "screen-reader",
+    "i18n",
+    "rtl",
+    "dark-mode"
+  ],
+  "main": "./dist/core.cjs.js",
+  "module": "./dist/core.esm.js",
+  "types": "./dist/core.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/core.d.ts",
+      "import": "./dist/core.esm.js",
+      "require": "./dist/core.cjs.js"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.esm.js",
+      "require": "./dist/react.cjs.js"
+    },
+    "./vue": {
+      "types": "./dist/vue.d.ts",
+      "import": "./dist/vue.esm.js",
+      "require": "./dist/vue.cjs.js"
+    },
+    "./svelte": {
+      "types": "./dist/svelte.d.ts",
+      "import": "./dist/svelte.esm.js",
+      "require": "./dist/svelte.cjs.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "react": ">=17",
+    "react-dom": ">=17",
+    "svelte": ">=4",
+    "vue": ">=3"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    },
+    "svelte": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@vitest/coverage-v8": "^4.1.7",
+    "happy-dom": "^20.9.0",
+    "jsdom": "^29.1.1",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "svelte": "^4.2.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.7.0",
+    "vitest": "^4.1.7",
+    "vue": "^3.5.0"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  }
+}

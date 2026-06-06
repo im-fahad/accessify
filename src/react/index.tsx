@@ -1,0 +1,87 @@
+import { useEffect, useRef, useState, useCallback } from 'react'
+import { Accessify, type AccessifyConfig, type AccessifyState } from '../core'
+
+export type AccessifyWidgetProps = AccessifyConfig
+
+export function AccessifyWidget(props: AccessifyWidgetProps) {
+  const instanceRef = useRef<Accessify | null>(null)
+  const propsRef = useRef<AccessifyWidgetProps>(props)
+  propsRef.current = props
+
+  useEffect(() => {
+    const instance = new Accessify(propsRef.current)
+    instanceRef.current = instance
+    instance.mount()
+
+    return () => {
+      instance.destroy()
+      instanceRef.current = null
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!instanceRef.current) return
+    if (props.colorScheme) instanceRef.current.setColorScheme(props.colorScheme)
+  }, [props.colorScheme])
+
+  useEffect(() => {
+    if (!instanceRef.current) return
+    if (props.lang) instanceRef.current.setLang(props.lang)
+  }, [props.lang])
+
+  useEffect(() => {
+    if (!instanceRef.current) return
+    if (props.size) instanceRef.current.setSize(props.size)
+  }, [props.size])
+
+  useEffect(() => {
+    if (!instanceRef.current) return
+    if (props.triggerScheme) instanceRef.current.setTriggerScheme(props.triggerScheme)
+  }, [props.triggerScheme])
+
+  return null
+}
+
+export function useAccessify(config: AccessifyConfig = {}) {
+  const instanceRef = useRef<Accessify | null>(null)
+  const [state, setState] = useState<AccessifyState | null>(null)
+  const [isOpen, setIsOpen] = useState(false)
+
+  useEffect(() => {
+    const instance = new Accessify(config)
+    instanceRef.current = instance
+    instance.mount()
+    setState(instance.getState())
+    return () => {
+      instance.destroy()
+      instanceRef.current = null
+    }
+  }, [])
+
+  const open = useCallback(() => {
+    instanceRef.current?.open()
+    setIsOpen(true)
+  }, [])
+
+  const close = useCallback(() => {
+    instanceRef.current?.close()
+    setIsOpen(false)
+  }, [])
+
+  const toggle = useCallback(() => {
+    instanceRef.current?.toggle()
+    setIsOpen(prev => !prev)
+  }, [])
+
+  const reset = useCallback(() => {
+    instanceRef.current?.reset()
+    if (instanceRef.current) {
+      setState(instanceRef.current.getState())
+    }
+  }, [])
+
+  return { open, close, toggle, reset, state, isOpen }
+}
+
+export type { AccessifyConfig, AccessifyState } from '../core'
+export { Accessify } from '../core'
